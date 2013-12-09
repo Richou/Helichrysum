@@ -12,6 +12,10 @@ To build, run
 Building will run the tests, but to explicitly run tests you can use the test target
 
     mvn test
+  
+To generate de discovery file for Google Cloud Endpoints run the command.
+
+	mvn appengine:endpoints_get_client_lib
 
 To start the app, use the [App Engine Maven Plugin](http://code.google.com/p/appengine-maven-plugin/) that is already included in this demo.  Just run the command.
 
