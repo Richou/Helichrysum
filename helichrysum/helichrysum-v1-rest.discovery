@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"doS0mIKix6_L3_LoT-sZZjofha4/Xacgpw1nM_AoGFOq6K0djLYTe6c\"",
+ "etag": "\"doS0mIKix6_L3_LoT-sZZjofha4/KaJbvYraH5rPDidH2-YOzP46Cy8\"",
  "discoveryVersion": "v1",
  "id": "helichrysum:v1",
  "name": "helichrysum",
@@ -11,10 +11,10 @@
   "x32": "http://www.google.com/images/icons/product/search-32.gif"
  },
  "protocol": "rest",
- "baseUrl": "https://helichrysum.appspot.com/_ah/api/helichrysum/v1/artistes/",
- "basePath": "/_ah/api/helichrysum/v1/artistes/",
+ "baseUrl": "https://helichrysum.appspot.com/_ah/api/helichrysum/v1/",
+ "basePath": "/_ah/api/helichrysum/v1/",
  "rootUrl": "https://helichrysum.appspot.com/_ah/api/",
- "servicePath": "helichrysum/v1/artistes/",
+ "servicePath": "helichrysum/v1/",
  "batchPath": "batch",
  "parameters": {
   "alt": {
@@ -71,10 +71,47 @@
   }
  },
  "schemas": {
+  "Album": {
+   "id": "Album",
+   "type": "object",
+   "properties": {
+    "id": {
+     "type": "string",
+     "format": "int64"
+    },
+    "nom": {
+     "type": "string"
+    },
+    "songs": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    }
+   }
+  },
+  "AlbumCollection": {
+   "id": "AlbumCollection",
+   "type": "object",
+   "properties": {
+    "items": {
+     "type": "array",
+     "items": {
+      "$ref": "Album"
+     }
+    }
+   }
+  },
   "Artiste": {
    "id": "Artiste",
    "type": "object",
    "properties": {
+    "albums": {
+     "type": "array",
+     "items": {
+      "$ref": "Album"
+     }
+    },
     "genre": {
      "type": "string"
     },
@@ -103,11 +140,139 @@
  "resources": {
   "helichrysum": {
    "resources": {
-    "artistes": {
+    "albums": {
      "methods": {
       "create": {
+       "id": "helichrysum.helichrysum.albums.create",
+       "path": "albums/create",
+       "httpMethod": "POST",
+       "request": {
+        "$ref": "Album",
+        "parameterName": "resource"
+       },
+       "scopes": [
+        "https://www.googleapis.com/auth/userinfo.email"
+       ]
+      },
+      "delete": {
+       "id": "helichrysum.helichrysum.albums.delete",
+       "path": "albums/delete/{id}",
+       "httpMethod": "GET",
+       "parameters": {
+        "id": {
+         "type": "string",
+         "required": true,
+         "format": "int64",
+         "location": "path"
+        }
+       },
+       "parameterOrder": [
+        "id"
+       ],
+       "scopes": [
+        "https://www.googleapis.com/auth/userinfo.email"
+       ]
+      },
+      "get": {
+       "id": "helichrysum.helichrysum.albums.get",
+       "path": "albums/see/{id}",
+       "httpMethod": "GET",
+       "parameters": {
+        "id": {
+         "type": "string",
+         "required": true,
+         "format": "int64",
+         "location": "path"
+        }
+       },
+       "parameterOrder": [
+        "id"
+       ],
+       "response": {
+        "$ref": "Album"
+       },
+       "scopes": [
+        "https://www.googleapis.com/auth/userinfo.email"
+       ]
+      },
+      "list": {
+       "id": "helichrysum.helichrysum.albums.list",
+       "path": "albums/list",
+       "httpMethod": "GET",
+       "response": {
+        "$ref": "AlbumCollection"
+       },
+       "scopes": [
+        "https://www.googleapis.com/auth/userinfo.email"
+       ]
+      },
+      "patch": {
+       "id": "helichrysum.helichrysum.albums.patch",
+       "path": "albums/update",
+       "httpMethod": "PATCH",
+       "parameters": {
+        "id": {
+         "type": "string",
+         "required": true,
+         "format": "int64",
+         "location": "query"
+        }
+       },
+       "parameterOrder": [
+        "id"
+       ],
+       "request": {
+        "$ref": "Album"
+       },
+       "scopes": [
+        "https://www.googleapis.com/auth/userinfo.email"
+       ]
+      },
+      "update": {
+       "id": "helichrysum.helichrysum.albums.update",
+       "path": "albums/update",
+       "httpMethod": "POST",
+       "request": {
+        "$ref": "Album",
+        "parameterName": "resource"
+       },
+       "scopes": [
+        "https://www.googleapis.com/auth/userinfo.email"
+       ]
+      }
+     }
+    },
+    "artistes": {
+     "methods": {
+      "addAlbum": {
+       "id": "helichrysum.helichrysum.artistes.addAlbum",
+       "path": "artistes/add/album/{idArt}/{idAlb}",
+       "httpMethod": "GET",
+       "parameters": {
+        "idAlb": {
+         "type": "string",
+         "required": true,
+         "format": "int64",
+         "location": "path"
+        },
+        "idArt": {
+         "type": "string",
+         "required": true,
+         "format": "int64",
+         "location": "path"
+        }
+       },
+       "parameterOrder": [
+        "idArt",
+        "idAlb"
+       ],
+       "scopes": [
+        "https://www.googleapis.com/auth/userinfo.email"
+       ]
+      },
+      "create": {
        "id": "helichrysum.helichrysum.artistes.create",
-       "path": "create",
+       "path": "artistes/create",
        "httpMethod": "POST",
        "request": {
         "$ref": "Artiste",
@@ -119,7 +284,7 @@
       },
       "delete": {
        "id": "helichrysum.helichrysum.artistes.delete",
-       "path": "delete/{id}",
+       "path": "artistes/delete/{id}",
        "httpMethod": "GET",
        "parameters": {
         "id": {
@@ -138,7 +303,7 @@
       },
       "get": {
        "id": "helichrysum.helichrysum.artistes.get",
-       "path": "see/{id}",
+       "path": "artistes/see/{id}",
        "httpMethod": "GET",
        "parameters": {
         "id": {
@@ -160,7 +325,7 @@
       },
       "list": {
        "id": "helichrysum.helichrysum.artistes.list",
-       "path": "list",
+       "path": "artistes/list",
        "httpMethod": "GET",
        "response": {
         "$ref": "ArtisteCollection"
@@ -171,7 +336,7 @@
       },
       "patch": {
        "id": "helichrysum.helichrysum.artistes.patch",
-       "path": "update",
+       "path": "artistes/update",
        "httpMethod": "PATCH",
        "parameters": {
         "id": {
@@ -193,7 +358,7 @@
       },
       "update": {
        "id": "helichrysum.helichrysum.artistes.update",
-       "path": "update",
+       "path": "artistes/update",
        "httpMethod": "POST",
        "request": {
         "$ref": "Artiste",

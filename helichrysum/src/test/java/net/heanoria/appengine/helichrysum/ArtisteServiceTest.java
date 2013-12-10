@@ -36,7 +36,7 @@ public class ArtisteServiceTest {
 	public void testCreateAndList(){
 		Artiste artiste = new Artiste();
 		artiste.setNom("CocoRosie");
-		artiste.setGenre("Freak Fold");
+		artiste.setGenre("Freak Folk");
 		
 		artisteService.create(artiste);
 		

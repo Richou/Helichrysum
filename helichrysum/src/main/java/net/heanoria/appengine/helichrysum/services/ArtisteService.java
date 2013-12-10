@@ -4,7 +4,9 @@ import java.util.List;
 
 import javax.inject.Named;
 
+import net.heanoria.appengine.helichrysum.dao.AlbumDao;
 import net.heanoria.appengine.helichrysum.dao.ArtisteDao;
+import net.heanoria.appengine.helichrysum.entity.Album;
 import net.heanoria.appengine.helichrysum.entity.Artiste;
 
 import com.google.api.server.spi.config.Api;
@@ -15,6 +17,7 @@ import com.google.api.server.spi.config.ApiMethod.HttpMethod;
 public class ArtisteService {
 
 	private ArtisteDao artisteDao = new ArtisteDao();
+	private AlbumDao albumDao = new AlbumDao();
 	
 	@ApiMethod(
 		name = "helichrysum.artistes.list",
@@ -57,5 +60,16 @@ public class ArtisteService {
 	public void delete(@Named("id") Long id){
 		Artiste toDelete = artisteDao.get(id);
 		artisteDao.delete(toDelete);
+	}
+	
+	@ApiMethod(
+		name = "helichrysum.artistes.addAlbum",
+		path = "artistes/add/album/{idArt}/{idAlb}",
+		httpMethod = HttpMethod.GET)
+	public void addAlbum(@Named("idArt") Long idArtiste, @Named("idAlb") Long idAlbum){
+		Artiste artiste = artisteDao.get(idArtiste);
+		Album album = albumDao.get(idAlbum);
+		artiste.addAlbum(album);
+		artisteDao.save(artiste);
 	}
 }
