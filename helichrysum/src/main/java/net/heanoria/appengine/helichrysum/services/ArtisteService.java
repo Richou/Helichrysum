@@ -32,8 +32,8 @@ public class ArtisteService {
 		path = "artistes/create",
 		httpMethod = HttpMethod.POST
 	)
-	public void create(Artiste artiste){
-		artisteDao.save(artiste);
+	public Artiste create(Artiste artiste){
+		return artisteDao.save(artiste);
 	}
 	
 	@ApiMethod(

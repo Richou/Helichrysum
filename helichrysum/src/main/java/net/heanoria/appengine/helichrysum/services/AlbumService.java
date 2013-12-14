@@ -29,8 +29,8 @@ public class AlbumService {
 		path = "albums/create",
 		httpMethod = HttpMethod.POST
 	)
-	public void create(Album album){
-		albumDao.save(album);
+	public Album create(Album album){
+		return albumDao.save(album);
 	}
 	
 	@ApiMethod(

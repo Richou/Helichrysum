@@ -6,9 +6,9 @@
     <version>1.0-SNAPSHOT</version>
 
     <groupId>net.heanoria.appengine</groupId>
-    <artifactId>helichrysum</artifactId>
+    <artifactId>heanoria</artifactId>
 
-        <pluginRepositories>
+    <pluginRepositories>
         <pluginRepository>
             <id>google-staging</id>
             <name>Google Staging</name>

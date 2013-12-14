@@ -4,6 +4,7 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
 
 import java.util.List;
 
+import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.cmd.Query;
 
@@ -15,8 +16,10 @@ public class ObjectifyDao<T>{
 		this.clazz = clazz;
 	}
 	
-	public void save(T entity){
-		ObjectifyService.ofy().save().entity(entity).now();
+	public T save(T entity){
+		Key<T> savedEntity = ObjectifyService.ofy().save().entity(entity).now();
+		Long id = savedEntity.getId();
+		return get(id);
 	}
 	
 	public List<T> listAll(){
