@@ -57,6 +57,7 @@ public class AlbumService {
 		httpMethod = HttpMethod.GET)
 	public void delete(@Named("id") Long id){
 		Album toDelete = albumDao.get(id);
+		if(toDelete == null) throw new IllegalArgumentException("ERROR - No Album with id(" + id + ") found.");
 		albumDao.delete(toDelete);
 	}
 }
