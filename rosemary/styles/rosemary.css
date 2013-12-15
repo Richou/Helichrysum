@@ -1,0 +1,61 @@
+body {font-family: helvetica, Arial; margin : 0; background-color: #eae5e4; }
+
+/* Embedded fonts */
+@font-face{font-family: starcraft; src: url('../font/starcraft.ttf') format('truetype');}
+
+/* Containers */
+
+div#content {min-height: 950px; width: 980px; margin:auto; left: 0; border-bottom-width: 0 !important; right: 0; padding: 25px 15px; background-color: #fff;}
+section#list {margin-top: 30px;}
+div#coolPopup{width: 550px; height:450px; padding: 10px;}
+div#createArtiste{display:none;}
+
+/* Articles */
+
+article.aa {border-bottom: 1px dashed #93b4ff; padding: 15px;}
+article.aa header {font-weight: bold;}
+article.aa span{font-size: 0.80em; font-weight: normal; color:#8f8f8f;}
+article.aa label.n-a{font-style: italic; font-size: 0.90em; color: #919191;}
+article.aa ul {list-style-type: none; padding: 2px; margin: 0px;}
+article.aa ul li{padding: 5px 0;}
+
+label#addArtiste:hover{cursor:pointer;}
+
+/* Boutons */
+
+input[type="submit"]{margin: 1.5em 1.5em 1.2em 0; height: 32px; font-weight: bold;}
+input.button-bg {background-image: -webkit-linear-gradient(top,#7db2de,#5D84A6); background-image: -moz-linear-gradient(top,#7db2de,#5D84A6); background-image: -ms-linear-gradient(top,#7db2de,#5D84A6); background-image: -o-linear-gradient(top,#7db2de,#5D84A6);}
+input.button-bg:hover {background-image: -webkit-linear-gradient(top,#6b97bd,#486882); background-image: -moz-linear-gradient(top,#6b97bd,#486882); background-image: -ms-linear-gradient(top,#6b97bd,#486882); background-image: -o-linear-gradient(top,#6b97bd,#486882);}
+input.b-j {padding: 0 8px; color: #fff; -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px; border: 0; text-shadow: 0 1px rgba(0,0,0,0.1); font-size: 12px; margin: 10px auto; display: block;}
+
+/* Redefinitions */
+
+h3 {font-family: starcraft; border-bottom: 1px solid #9f9d9d; padding: 0 5px;}
+
+/* Popup */
+
+#backgroundPopup { position: absolute; top: 0; left: 0; overflow: hidden; display: none; z-index: 8010; background: #000;}
+#backgroundPopup.background-popup { position: fixed; bottom: 0; right: 0;}
+div.f-h { z-index: 8011; background: #fff; padding: 5px; border: 1px solid #5B5BFF; position : absolute; box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5); -moz-box-shadow: 10px 10px 20px rgba(0,0,0,0.5); -webkit-box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5);}
+
+/* Formulaires */
+
+form#createArtisteForm , form#createAlbumForm{margin: auto; width: 350px;}
+form label {display:block; margin: 5px;}
+form {padding :15px;}
+form input[type="text"], textarea{margin: 5px; width:325px;}
+form select {margin: 5px; width:330px;}
+form textarea{height: 250px;}
+
+/* Liens */
+
+a {text-decoration: none; color: #000;}
+a:hover{color: #969696;}
+
+/* ************* */
+
+span.right{float: right;}
+span.add {font-size: 0.60em; font-style: italic; font-weight: normal;}
+span.tooltip {font-size: 0.80em; font-style:italic; color: #8f8f8f;}
+span.throbber {margin-left: 15px; display: none;}
+span.error {color: #ff5a5a; margin-left: 5px; display:none;}

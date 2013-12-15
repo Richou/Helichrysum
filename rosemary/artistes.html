@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8" />
+    <title>RoseMary</title>
+	<link rel="stylesheet" type="text/css" href="./styles/rosemary.css" />
+</head>
+<body>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+	<script src="./js/core.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			getAlbumList($('#albumsContainer'));
+		
+			$('#createArtisteForm').on('submit', function(e){
+				var artisteId = $("#createArtisteForm input[name=artisteId]").val();
+				var artisteName = $("#createArtisteForm input[name=artisteNom]").val();
+				var artisteGenre = $("#createArtisteForm input[name=artisteGenre]").val();
+				var albumsId = $("#createArtisteForm input:checkbox[name=albumsBox]:checked").map(function(){
+					return $(this).val();
+				});
+				var datas = {};
+				if(artisteId != ''){
+					datas["id"] = artisteId;
+				}
+				datas["nom"] = artisteName;
+				datas["genre"] = artisteGenre;
+				var albumTab = [];
+				if(albumsId.length != 0){
+					$('#albumError').hide();
+					$(albumsId).each(function(i, albumId){
+						albumTab.push({"id": albumId});
+					});
+				} else {
+					e.preventDefault();
+					$('#albumError').show();
+					return false;
+				}
+				datas["albums"] = albumTab;
+				$.ajax({
+					url: API_URL + "_ah/api/helichrysum/v1/artistes/create",
+					dataType: 'json',
+					type: "POST",
+					contentType: "application/json, charset=utf-8",
+					data: JSON.stringify(datas),
+					beforeSend: function(e){
+						$('#throbber').show();
+					},
+					success: function(result){
+						$('#createArtisteForm input[type=text]').val("");
+						$("#createArtisteForm input:checkbox[name=albumsBox]:checked").each(function(i, ch){
+							$(this).attr('checked', false);
+						});
+						$('#throbber').hide();
+					},
+					error:function(jqXHR, textStatus, errorThrown){
+						console.log(errorThrown);
+					}
+				});
+				e.preventDefault();
+				return false;
+			});
+			
+			if(getParam('id') != null){
+				$.ajax({
+					url: API_URL + "_ah/api/helichrysum/v1/artistes/see/" + getParam('id'),
+					dataType: 'json',
+					type: "GET",
+					contentType: "application/json, charset=utf-8",
+					beforeSend: function(e){
+						$('#throbber').show();
+					},
+					success: function(result){
+						$("#createArtisteForm input[name=artisteId]").val(result.id);
+						$("#createArtisteForm input[name=artisteNom]").val(result.nom);
+						$("#createArtisteForm input[name=artisteGenre]").val(result.genre);
+						$("#createArtisteForm input:checkbox[name=albumsBox]").each(function(i, ch){
+							var albums = result.albums;
+							var checkAlbum = $(this);
+							$(albums).each(function(i, album){
+								if(album != null && album.id == $(checkAlbum).val()){
+									$(checkAlbum).attr('checked', true);
+								}
+							});
+						});
+						$('#throbber').hide();
+					},
+					error:function(jqXHR, textStatus, errorThrown){
+						console.log(errorThrown);
+					}
+				});
+			}
+		});
+	</script>
+	
+	<div id="content">
+		<h3>Ajouter un nouvel artiste<span id="throbber" class="throbber"><img src="./img/wait.gif" alt="Chargement en cours"/></span><span class="right add"><a href="index.html">Voir</a></span></h3>
+		<form id="createArtisteForm" method="post">
+			<input type="hidden" name="artisteId" /><br />
+			<label>Nom</label>
+			<input type="text" placeholder="Entrer le nom d'un artiste" required name="artisteNom"/><br />
+			<label>Genre</label>
+			<input type="text" placeholder="Entrer le genre de l'artiste" required name="artisteGenre"/><br />
+			<label>Ajout un album<span id="albumError" class="tooltip error">Selectionner au moins un album</span></label>
+			<div id="albumsContainer"></div>
+			<input type="submit" value="Enregistrer" class="b-j button-bg"/>
+		</form>
+	</div>
+
+</body>
+</html>
