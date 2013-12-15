@@ -42,7 +42,7 @@ public class ArtisteService {
 		httpMethod = HttpMethod.POST		
 	)
 	public void update(Artiste artiste){
-		// Fais la même chose que create mais par soucis de lisibilite, j'ai fais deux methodes
+		// Fais la meme chose que create mais par soucis de lisibilite, j'ai fais deux methodes
 		artisteDao.save(artiste);
 	}
 	
