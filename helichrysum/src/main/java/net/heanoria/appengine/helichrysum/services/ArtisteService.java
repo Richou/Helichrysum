@@ -60,6 +60,7 @@ public class ArtisteService {
 		httpMethod = HttpMethod.GET)
 	public void delete(@Named("id") Long id){
 		Artiste toDelete = artisteDao.get(id);
+		if(toDelete == null) throw new IllegalArgumentException("ERROR - No Artiste with id(" + id + ") found.");
 		artisteDao.delete(toDelete);
 	}
 	
@@ -71,6 +72,11 @@ public class ArtisteService {
 		// On va chercher les entites correspondantes aux id passes en parametres.
 		Artiste artiste = artisteDao.get(idArtiste);
 		Album album = albumDao.get(idAlbum);
+		
+		// On emet un exception si pas d'album ou artiste trouve
+		if(artiste == null) throw new IllegalArgumentException("ERROR - No Artiste with id(" + idArtiste + ") found.");
+		if(album == null) throw new IllegalArgumentException("ERROR - No Album with id(" + idAlbum + ") found.");
+		
 		// On ajoute l'album a l'artiste trouve
 		artiste.addAlbum(album);
 		artisteDao.save(artiste);
