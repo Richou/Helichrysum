@@ -43,6 +43,8 @@
 				e.preventDefault();
 				return false;
 			});
+			
+			// En mode edit on a l'id donc on remplis les champs
 			if(getParam('id') != null){
 				$.ajax({
 					url: API_URL + "_ah/api/helichrysum/v1/albums/see/" + getParam('id'),

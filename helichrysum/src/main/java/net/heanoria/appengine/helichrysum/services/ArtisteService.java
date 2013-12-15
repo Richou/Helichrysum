@@ -42,6 +42,7 @@ public class ArtisteService {
 		httpMethod = HttpMethod.POST		
 	)
 	public void update(Artiste artiste){
+		// Fais la même chose que create mais par soucis de lisibilite, j'ai fais deux methodes
 		artisteDao.save(artiste);
 	}
 	
@@ -67,8 +68,10 @@ public class ArtisteService {
 		path = "artistes/add/album/{idArt}/{idAlb}",
 		httpMethod = HttpMethod.GET)
 	public void addAlbum(@Named("idArt") Long idArtiste, @Named("idAlb") Long idAlbum){
+		// On va chercher les entites correspondantes aux id passes en parametres.
 		Artiste artiste = artisteDao.get(idArtiste);
 		Album album = albumDao.get(idAlbum);
+		// On ajoute l'album a l'artiste trouve
 		artiste.addAlbum(album);
 		artisteDao.save(artiste);
 	}
