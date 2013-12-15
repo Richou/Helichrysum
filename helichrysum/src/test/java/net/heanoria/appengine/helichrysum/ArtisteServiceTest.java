@@ -1,10 +1,12 @@
 package net.heanoria.appengine.helichrysum;
 
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertTrue;
 
 import java.util.List;
 
-import junit.framework.Assert;
 import net.heanoria.appengine.helichrysum.entity.Artiste;
 import net.heanoria.appengine.helichrysum.services.ArtisteService;
 
@@ -42,6 +44,39 @@ public class ArtisteServiceTest {
 		
 		List<Artiste> savedArtistes = artisteService.listeArtistes();
 		assertNotNull(savedArtistes);
-		Assert.assertFalse(savedArtistes.isEmpty());
+		assertFalse(savedArtistes.isEmpty());
+	}
+	
+	@Test
+	public void testUpdate(){
+		Artiste artiste = new Artiste();
+		artiste.setNom("CocoRosie");
+		artiste.setGenre("Folk");
+		
+		artiste = artisteService.create(artiste);
+		assertEquals("Folk", artiste.getGenre());
+		
+		Artiste cocorosie = artisteService.getOne(artiste.getId());
+		cocorosie.setGenre("Freak Folk");
+		
+		artisteService.update(cocorosie);
+		
+		cocorosie = artisteService.getOne(cocorosie.getId());
+		assertEquals("Freak Folk", cocorosie.getGenre());
+	}
+	
+	@Test
+	public void testDelete(){
+		Artiste artiste = new Artiste();
+		artiste.setNom("CocoRosie");
+		artiste.setGenre("Folk");
+		
+		artiste = artisteService.create(artiste);
+		assertEquals("Folk", artiste.getGenre());		
+		
+		artisteService.delete(artiste.getId());
+		
+		Artiste cocorosie = artisteService.getOne(artiste.getId());
+		assertTrue(cocorosie == null);
 	}
 }
