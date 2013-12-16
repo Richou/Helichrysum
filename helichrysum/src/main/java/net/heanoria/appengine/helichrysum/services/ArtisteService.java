@@ -1,6 +1,7 @@
 package net.heanoria.appengine.helichrysum.services;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.inject.Named;
 
@@ -16,6 +17,8 @@ import com.google.api.server.spi.config.ApiMethod.HttpMethod;
 @Api(name = "helichrysum", version = "v1", description = "Artiste API")
 public class ArtisteService {
 
+	private static final Logger log = Logger.getLogger(ArtisteService.class.getName());
+	
 	private ArtisteDao artisteDao = new ArtisteDao();
 	private AlbumDao albumDao = new AlbumDao();
 	
@@ -24,7 +27,10 @@ public class ArtisteService {
 		path = "artistes/list",
 		httpMethod = HttpMethod.GET)
 	public List<Artiste> listeArtistes(){
-		return artisteDao.listAll();
+		List<Artiste> results = artisteDao.listAll();
+		if(results != null)
+			log.info("Found " + results.size() + " Artistes");
+		return results;
 	}
 	
 	@ApiMethod(
@@ -33,7 +39,11 @@ public class ArtisteService {
 		httpMethod = HttpMethod.POST
 	)
 	public Artiste create(Artiste artiste){
-		return artisteDao.save(artiste);
+		Artiste art = artisteDao.save(artiste);
+		if(art != null){
+			log.info("Artiste{name='" + art.getNom() + "} created with id(" + art.getId() + ")");
+		}
+		return art;
 	}
 	
 	@ApiMethod(
@@ -44,6 +54,7 @@ public class ArtisteService {
 	public void update(Artiste artiste){
 		// Fais la meme chose que create mais par soucis de lisibilite, j'ai fais deux methodes
 		artisteDao.save(artiste);
+		log.info("Artiste{name'" + artiste.getNom() + "', id=" + artiste.getId() + "} updated");
 	}
 	
 	@ApiMethod(
@@ -51,7 +62,14 @@ public class ArtisteService {
 		path = "artistes/see/{id}",
 		httpMethod = HttpMethod.GET)
 	public Artiste getOne(@Named("id") Long id){
-		return artisteDao.get(id);
+		Artiste artiste = artisteDao.get(id); 
+		if(artiste != null){
+			log.info("Found artiste{name='" + artiste.getNom() + "', id='" + artiste.getId() + "'}");
+		}else{
+			log.severe("ERROR - No Artiste with id(" + id + ") found.");
+			throw new IllegalArgumentException("ERROR - No Artiste with id(" + id + ") found.");
+		}
+		return artiste;
 	}
 	
 	@ApiMethod(
@@ -60,7 +78,10 @@ public class ArtisteService {
 		httpMethod = HttpMethod.GET)
 	public void delete(@Named("id") Long id){
 		Artiste toDelete = artisteDao.get(id);
-		if(toDelete == null) throw new IllegalArgumentException("ERROR - No Artiste with id(" + id + ") found.");
+		if(toDelete == null){
+			log.severe("ERROR - No Artiste with id(" + id + ") found.");
+			throw new IllegalArgumentException("ERROR - No Artiste with id(" + id + ") found.");
+		}
 		artisteDao.delete(toDelete);
 	}
 	
@@ -74,8 +95,15 @@ public class ArtisteService {
 		Album album = albumDao.get(idAlbum);
 		
 		// On emet un exception si pas d'album ou artiste trouve
-		if(artiste == null) throw new IllegalArgumentException("ERROR - No Artiste with id(" + idArtiste + ") found.");
-		if(album == null) throw new IllegalArgumentException("ERROR - No Album with id(" + idAlbum + ") found.");
+		if(artiste == null){
+			log.severe("ERROR - No Artiste with id(" + idArtiste + ") found.");
+			throw new IllegalArgumentException("ERROR - No Artiste with id(" + idArtiste + ") found.");
+		}
+		
+		if(album == null){
+			log.severe("ERROR - No Album with id(" + idAlbum + ") found.");
+			throw new IllegalArgumentException("ERROR - No Album with id(" + idAlbum + ") found.");
+		}
 		
 		// On ajoute l'album a l'artiste trouve
 		artiste.addAlbum(album);

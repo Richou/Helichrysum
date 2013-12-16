@@ -3,10 +3,10 @@ package net.heanoria.appengine.helichrysum;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertNotNull;
-import static junit.framework.Assert.assertTrue;
 
 import java.util.List;
 
+import junit.framework.Assert;
 import net.heanoria.appengine.helichrysum.entity.Artiste;
 import net.heanoria.appengine.helichrysum.services.ArtisteService;
 
@@ -76,7 +76,11 @@ public class ArtisteServiceTest {
 		
 		artisteService.delete(artiste.getId());
 		
-		Artiste cocorosie = artisteService.getOne(artiste.getId());
-		assertTrue(cocorosie == null);
+		try{
+			artisteService.getOne(artiste.getId());
+			Assert.fail("Must throw an IllegalArgumentException");
+		}catch(IllegalArgumentException ex){
+			
+		}
 	}
 }

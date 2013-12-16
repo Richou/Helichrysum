@@ -3,10 +3,10 @@ package net.heanoria.appengine.helichrysum;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
+import junit.framework.Assert;
 import net.heanoria.appengine.helichrysum.entity.Album;
 import net.heanoria.appengine.helichrysum.services.AlbumService;
 
@@ -74,7 +74,12 @@ public class AlbumServiceTest {
 		
 		albumService.delete(album.getId());
 		
-		Album iron = albumService.getOne(album.getId());
-		assertTrue(iron == null);
+		try{
+			albumService.getOne(album.getId());
+			Assert.fail("Must throw an IllegalArgumentException");
+		}catch(IllegalArgumentException ex){
+			
+		}
+		
 	}
 }
