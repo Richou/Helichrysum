@@ -3,6 +3,8 @@
 	<title>Helichrysum</title>
 </head>
 <body>
-	teder
+	<section data-ng-controller="ArtistesController">
+		
+	</section>
 </body>
 </html>

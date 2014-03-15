@@ -30,7 +30,8 @@
 	<div class="container">
 		<div class="container-fluid">
 			<div class="navbar-header">
-				<label>Google Appengine - AngularJS</label>
+				<img src="${contextPath}/img/spring.jpg" alt="img" />
+				<label>Google Appengine - Spring MVC - AngularJS</label>
 			</div>
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="jsp/artistes.jsp">Artistes</a>
