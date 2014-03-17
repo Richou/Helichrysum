@@ -1,4 +1,5 @@
-<%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="decorator" uri="http://www.opensymphony.com/sitemesh/decorator" %>
 <%@ page isELIgnored ="false" %>
@@ -33,9 +34,6 @@
 				<img src="${contextPath}/img/spring.jpg" alt="img" />
 				<label>Google Appengine - Spring MVC - AngularJS</label>
 			</div>
-			<ul class="nav navbar-nav navbar-right">
-				<li><a href="jsp/artistes.jsp">Artistes</a>
-			</ul>	
 		</div>
 	</div>
 </nav>

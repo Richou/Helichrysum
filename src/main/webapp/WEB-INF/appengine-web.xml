@@ -5,13 +5,15 @@
 	<threadsafe>true</threadsafe>
 
 	<system-properties>
+		<property name="file.encoding" value="UTF-8" />
+		<property name="DEFAULT_ENCODING" value="UTF-8" />
 		<property name="java.util.logging.config.file" value="WEB-INF/logging.properties" />
 	</system-properties>
 
 
 	<static-files>
-	    <include path="/js/**" />
-	    <include path="/img/**" />
-	    <include path="/styles/**" />
-    </static-files>
+		<include path="/js/**" />
+		<include path="/img/**" />
+		<include path="/styles/**" />
+	</static-files>
 </appengine-web-app>
