@@ -1,5 +1,16 @@
-heanoria.controller('ArtistesController', ['$scope', '$log', '$http', 'ROOT_URL', 'API_PREFIX', 
-		function ($scope, $log, $http, ROOT_URL, API_PREFIX){
+var artistesPopupController = function ($scope, $modalInstance, $log, $http, ROOT_URL) {
+
+	$scope.ok = function () {
+		$modalInstance.close();
+	};
+	
+	$scope.cancel = function () {
+		$modalInstance.dismiss('cancel');
+	};
+}
+
+heanoria.controller('ArtistesController', ['$scope', '$log', '$http', '$modal', 'ROOT_URL', 'API_PREFIX', 
+		function ($scope, $log, $http, $modal, ROOT_URL, API_PREFIX){
 	
 	$scope.urlPrefix = ROOT_URL + '/' + API_PREFIX;
 	$scope.isBusy = false;
@@ -18,6 +29,13 @@ heanoria.controller('ArtistesController', ['$scope', '$log', '$http', 'ROOT_URL'
 			$log.error(data);
 			$scope.isBusy = false;
 		});
+	};
+	
+	$scope.openPopup = function() {
+		$modal.open({
+			templateUrl : 'addArtistesPopup',
+			controller : 'artistesPopupController'
+		})
 	};
 	
 	$scope.getArtistes();

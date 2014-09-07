@@ -14,9 +14,9 @@
 	
 	<link rel="stylesheet" type="text/css" href="${contextPath}/styles/base.css" />
 	
-	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-	<script src="${contextPath}/js/libs/ui-bootstrap-0.10.0.min.js"></script>
+	<script src="${contextPath}/js/libs/ui-bootstrap-tpls-0.11.0.min.js"></script>
 	<script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.10.0.js"></script>
 	
 	<script src="${contextPath}/js/heanoria/Core.js"></script>

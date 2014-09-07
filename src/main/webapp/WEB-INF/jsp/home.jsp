@@ -6,7 +6,19 @@
 </head>
 <body>
 	<section data-ng-controller="ArtistesController">
-		<h3 class="page-header s-t">Les Artistes</h3>
+		<script type="text/ng-template" id="addArtistesPopup">
+			<div class="modal-header">
+           		<h3 class="modal-title">Ajouter un Artiste</h3>
+        	</div>
+        	<div class="modal-body">
+				
+        	</div>
+        	<div class="modal-footer">
+            	<button class="btn btn-primary" ng-click="ok()">OK</button>
+            	<button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        	</div>
+		</script>
+		<h3 class="page-header s-t">Les Artistes <a href="#" class="btn btn-info pull-right" ng-click="openPopup()">Ajouter</a></h3>
 		<p>Un tableau représentant une liste des Artistes enregistrés.</p>
 		<table class="table">
 			<thead>

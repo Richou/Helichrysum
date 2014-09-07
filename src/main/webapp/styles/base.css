@@ -2,4 +2,4 @@ body {padding-top: 70px;}
 
 img {border-radius : 25px; opacity: 0.75; filter:alpha(opacity=75);}
 
-.page-header.s-t {margin-top: 0;}
+.page-header.s-t {margin-top: 0; line-height: 35px;}
